@@ -10,14 +10,25 @@ ___________________________________________________________
     =>prints text
     =>closes file
     
+    
 #'w' command allows you to write the file
+
     #=>checks if file was opened or not
+    
     #=>takes user input
+    
     #=>writes user input to file
+    
     #=>closes file
     
+    
 #'a' command allows you to append stuff into the file
+
     #=>checks if file was opened or not
+    
     #=>takes user input
+    
     #=>appends user input to file
+    
     #=>closes file
+    
