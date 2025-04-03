@@ -1,77 +1,91 @@
+
 #include<stdio.h>
+#include<string.h>
 
-int main(void)
+#define LINE_SIZE 20
+#define FILE_LENGTH 10
+#define SIZE 100
+
+void print_file(char file_name[FILE_LENGTH])
 {
-    char file_name[10]; char action;
-    
-    printf("write file name: \n");
+  FILE* file = fopen(file_name, "r");
+  char text[LINE_SIZE];
+  if(file == NULL)
+  {
+    fprintf(stderr, "Error: File Doesn't Exist\n");
+    return;
+  }
+  while(fgets(text, sizeof(text), file))
+  {
+    printf("%s", text);
+  }
+}
 
-    if(fgets(file_name, 10, stdin) == NULL)
-    {
-        printf("That file doesn't seem to exist\n");
-        return 1;
-    }
-    if (sscanf(file_name, "%10s", file_name) != 1) //
-    {                                              //I STILL DON'T COMPLETELY UNDERSTAND THIS!
-        printf("Invalid file name!\n");            //     
-        return 1;                                  //             
-    }
+
+void write_to_file(char file_name[FILE_LENGTH])
+{ 
+  FILE* file = fopen(file_name, "w");
+  if(file == NULL)
+  {printf("Error: Couldn't open file\n");
+  return;  
+  }
+  printf("What do you wish to write to your file?\n");
+  char query[50];
+  
+  fgets(query, sizeof(query), stdin);
+  fprintf(file,"%s", query);
+  printf("Written to file succesfully!\n");
+}
+
+void append_to_file(char file_name[FILE_LENGTH])
+{ 
+  FILE* file = fopen(file_name, "a");
+  if(file == NULL)
+  {
+    printf("Error: Couldn't open file\n");
+    return;  
+  }
+  printf("What do you wish to append to your file?\n");
+  char query[50];
+  
+  fgets(query, sizeof(query), stdin);
+  fprintf(file, query);
+  printf("Written to file succesfully!\n");
+}
+
+
+int main()
+{
+    printf("r: print file contents\nw: write to file\na: append to file\n");
+    char file_name[FILE_LENGTH]; 
+     
+    printf("Write the File's Name : \n");
+    fgets(file_name, FILE_LENGTH, stdin);
+    file_name[strcspn(file_name, "\n")] = '\0';
 
     printf("write course of action for file: \n");
-    scanf_s(" %c", &action);
-
-    if(action == 'r')
-    {
-    char text[100000] = {0}; 
-
-    FILE * file = fopen(file_name, "r") ;
-        if(file == NULL)
-        {
-            printf("Error in opening file!\n");
-            return 1;
-        }
-
-        fgets(text, sizeof(text), file);
-        printf("%s", text);
-        fclose(file);
-    }
     
-    else if(action == 'w')
+    char action[SIZE];
+    fgets(action, sizeof(action), stdin);
+    action[strcspn(action, "\n")] = '\0';
+
+    if(strcmp(action,"r") == 0)
     {
-        char str[1000] = {0};
-
-        FILE * file = fopen(file_name, "w") ;
-
-        if(file == NULL)
-        {
-            printf("Error in opening file!\n");
-            return 1;
-        }
-            printf("what do you want to write? :\n");
-            fgets(str, sizeof(str), stdin);
-            fprintf(file, "%s", str);
-            fclose(file);
+      print_file(file_name);
     }
-
-    else if(action == 'a')
+    else if(strcmp(action,"w") == 0)
     {
-        char text[100000]; 
-
-        FILE * file = fopen(file_name, "a");
-        if(file == NULL)
-        {
-            printf("Error in opening file!\n");
-            return 1;
-        }
-            printf("What do you want to append? :\n");
-            fgets(text, sizeof(text), stdin);
-            fprintf(file, "%s", text);
-            fclose(file);
+      write_to_file(file_name);
+      
+    }
+    else if(strcmp(action,"a") ==   0)
+    {
+     append_to_file(file_name);
+      
     }
     else
     {
-        printf("wrong action!");
-        return 1;
+      printf("Invalid!\n");  
     }
     return 0;
 }
