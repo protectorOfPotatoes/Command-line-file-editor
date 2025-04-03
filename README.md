@@ -115,14 +115,11 @@ int main()
    - Enter text when prompted for writing or appending.
 
 ## Notes
-- The program **removes the newline character** from user input.
-- `fprintf(file, "%s", query);` is used instead of `fprintf(file, query);` to **avoid format string vulnerabilities**.
-- **File names are limited to 100 characters**, and input buffers are properly managed to prevent overflows.
+1. It can only edit the files which are in the current working directory or below it in the directory tree.
 
 ## Improvements
-- Add **error handling for empty input**.
-- Allow **multiple operations** without restarting the program.
-- Implement **file existence checks** before writing or appending.
+- I'm too lazy to write them.
+- There are so many.
 
 ## License
 DWYW License.
