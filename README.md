@@ -125,6 +125,4 @@ int main()
 - Implement **file existence checks** before writing or appending.
 
 ## License
-This project is open-source and can be modified or distributed freely.
-
--I made chatgpt write the markdown because markdown is so complicated
+DWYW License.
